@@ -7,7 +7,7 @@
     <meta name="description" content="Experience authentic Indian cuisine at Spicy Venue. Traditional flavors meet modern dining.">
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -25,6 +25,11 @@
             <a href="#home">
                 <img src="images/SV_Logo-removebg-preview.png" alt="Spicy Venue Logo" id="logo">
             </a>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#menu">Menu</a></li>
@@ -32,7 +37,6 @@
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#catering">Catering</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li id="toast"><a href="#toast">Toast</a></li>
             </ul>
         </nav>
     </header>
@@ -43,18 +47,45 @@
             <div class="slide-content">
                 <h1>Welcome to Spicy Venue</h1>
                 <p>Experience the authentic flavors of India</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="hero-btn primary">
+                        View Our Menu
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#contact" class="hero-btn secondary">Book a Table</a>
+                </div>
             </div>
         </div>
         <div class="slide" style="background-image: url('images/hero2.jpg')">
             <div class="slide-content">
                 <h1>Traditional Recipes</h1>
                 <p>Crafted with love and expertise</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="hero-btn primary">
+                        View Our Menu
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#contact" class="hero-btn secondary">Book a Table</a>
+                </div>
             </div>
         </div>
         <div class="slide" style="background-image: url('images/hero3.jpg')">
             <div class="slide-content">
                 <h1>Modern Dining Experience</h1>
                 <p>Where tradition meets contemporary</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="hero-btn primary">
+                        View Our Menu
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#contact" class="hero-btn secondary">Book a Table</a>
+                </div>
             </div>
         </div>
     </section>
@@ -62,29 +93,16 @@
     <!-- Menu Section -->
     <section id="menu" class="section-padding">
         <div class="container">
-            <h2 class="text-center">Our Signature Dishes</h2>
+            <h2 class="text-center">Our Menu</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="starters">Starters</button>
+                <button class="category-btn" data-category="main">Main Course</button>
+                <button class="category-btn" data-category="bread">Bread & Rice</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+            </div>
             <div class="menu-grid">
-                <div class="menu-item">
-                    <img src="images/biryani.jpg" alt="Biryani" class="img-fluid">
-                    <div class="menu-content">
-                        <h3>Hyderabadi Biryani</h3>
-                        <p>Aromatic basmati rice cooked with tender meat and authentic spices</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="images/curry.jpg" alt="Curry" class="img-fluid">
-                    <div class="menu-content">
-                        <h3>Butter Chicken</h3>
-                        <p>Creamy tomato-based curry with tender chicken pieces</p>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <img src="images/tandoori.jpg" alt="Tandoori" class="img-fluid">
-                    <div class="menu-content">
-                        <h3>Tandoori Specialties</h3>
-                        <p>Grilled delicacies from our traditional clay oven</p>
-                    </div>
-                </div>
+                <!-- Menu items will be populated by JavaScript -->
             </div>
         </div>
     </section>
@@ -217,29 +235,80 @@
     <section id="contact" class="section-padding">
         <div class="container">
             <h2 class="text-center">Contact Us</h2>
-            <div class="contact-content">
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Your Name" required>
+            <p class="contact-intro text-center">We'd love to hear from you! Reach out to us for reservations, feedback, or any questions you might have.</p>
+            
+            <div class="contact-container">
+                <div class="restaurant-info">
+                    <h3>Restaurant Information</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>2552 Stonebrook Parkway, <br> Suite 500,Frisco, <br> Texas, 75034</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1(972)292-9528</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <select required>
-                            <option value="">Select Purpose</option>
-                            <option value="reservation">Table Reservation</option>
-                            <option value="feedback">Feedback</option>
-                            <option value="catering">Catering Inquiry</option>
-                        </select>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@spicyvenue.com</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <textarea rows="5" placeholder="Your Message" required></textarea>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Monday - Thursday: 11:00 AM - 10:00 PM<br>
+                               Friday - Saturday: 11:00 AM - 11:00 PM<br>
+                               Sunday: 12:00 PM - 9:00 PM</p>
+                        </div>
                     </div>
-                    <button type="submit" class="btn-primary">Send Message</button>
-                </form>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h3>Send us a Message</h3>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="(555) 123-4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="map-section">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3337.6761865516392!2d-96.85127792427297!3d33.15000337382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c3c3e3f40e595%3A0x1a264c5b4fa6e09d!2s2552%20Stonebrook%20Pkwy%20%23500%2C%20Frisco%2C%20TX%2075034!5e0!3m2!1sen!2sus!4v1709704544050!5m2!1sen!2sus" 
+            width="100%" 
+            height="450" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
     </section>
 
     <!-- Footer -->
@@ -252,8 +321,8 @@
                 </div>
                 <div class="footer-contact">
                     <h3>Contact Info</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Spice Street, Foodville</p>
-                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 2552 Stonebrook Parkway, Suite 500,Frisco, Texas, 75034</p>
+                    <p><i class="fas fa-phone"></i>+1(972)292-9528</p>
                     <p><i class="fas fa-envelope"></i> info@spicyvenue.com</p>
                 </div>
                 <div class="footer-hours">

@@ -13,9 +13,9 @@ const menuData = [
     {
         category: 'main',
         name: 'Butter Chicken',
-        description: 'Creamy tomato-based curry with tender chicken pieces',
-        price: '$16.99',
-        image: 'images/curry.jpg',
+        description: 'Tender chicken cooked in a rich, creamy tomato sauce',
+        price: '$18.99',
+        image: 'images/butter-chicken.jpg',
         isVeg: false,
         isSpicy: 2,
         isPopular: true
@@ -34,7 +34,7 @@ const menuData = [
         category: 'starters',
         name: 'Paneer Tikka',
         description: 'Chunks of paneer marinated in spices and grilled in a tandoor',
-        price: '$12.99',
+        price: '12.99',
         image: 'images/paneer-tikka.jpg',
         isVeg: true,
         isSpicy: 2,
@@ -44,19 +44,19 @@ const menuData = [
         category: 'starters',
         name: 'Samosa',
         description: 'Crispy pastry filled with spiced potatoes and peas',
-        price: '$8.99',
+        price: '8.99',
         image: 'images/samosa.jpg',
         isVeg: true,
-        isSpicy: 1
+        isSpicy: 2
     },
     {
         category: 'main',
         name: 'Palak Paneer',
         description: 'Cottage cheese cubes in a smooth spinach gravy',
-        price: '$15.99',
+        price: '15.99',
         image: 'images/palak-paneer.jpg',
         isVeg: true,
-        isSpicy: 1
+        isSpicy: 2
     },
     {
         category: 'bread',
@@ -229,36 +229,45 @@ if (contactForm) {
 let activeCategory = 'all';
 
 function createMenuCard(item) {
+    const spiceIndicator = item.isSpicy ? `<div class="spice-indicator">${'🌶️'.repeat(item.isSpicy)}</div>` : '';
     return `
         <div class="menu-item">
-            <div class="menu-item-image">
-                <img src="${item.image}" alt="${item.name}" loading="lazy">
-                <div class="menu-item-badges">
-                    <div class="badge-group">
-                        <span class="badge ${item.isVeg ? 'veg' : 'non-veg'}">${item.isVeg ? 'Veg' : 'Non-Veg'}</span>
-                        <span class="spice-level">${'🌶️'.repeat(item.isSpicy)}</span>
-                    </div>
-                    ${item.isPopular ? '<span class="badge popular">Popular</span>' : ''}
-                </div>
+            <img src="${item.image}" alt="${item.name}" loading="lazy">
+            <div class="menu-badges">
+                <span class="badge ${item.isVeg ? 'veg' : 'non-veg'}">${item.isVeg ? 'Veg' : 'Non-Veg'}</span>
+                ${item.isPopular ? '<span class="badge popular">Popular</span>' : ''}
             </div>
-            <div class="menu-content" style="padding-left: 5px; padding-right: px;">
+            <button class="heart-icon">
+                <i class="far fa-heart"></i>
+            </button>
+            <div class="menu-content">
                 <h3>${item.name}</h3>
                 <p>${item.description}</p>
-                <span class="price">${item.price}</span>
+                <div class="price-spice">
+                    <span class="price">$${item.price}</span>
+                    ${spiceIndicator}
+                </div>
             </div>
         </div>
     `;
 }
 
-function updateMenu() {
-    const filteredItems = activeCategory === 'all' 
+function updateMenu(category = 'all') {
+    const filteredItems = category === 'all' 
         ? menuData 
-        : menuData.filter(item => item.category === activeCategory);
+        : menuData.filter(item => item.category === category);
     
     menuContainer.innerHTML = filteredItems.map(createMenuCard).join('');
     
-    // Re-observe new elements
-    document.querySelectorAll('.menu-item').forEach(item => observer.observe(item));
+    // Add heart icon click handlers
+    document.querySelectorAll('.heart-icon').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fas');
+            icon.classList.toggle('far');
+        });
+    });
 }
 
 // Category button handling
@@ -266,8 +275,7 @@ document.querySelectorAll('.category-btn').forEach(button => {
     button.addEventListener('click', () => {
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        activeCategory = button.dataset.category;
-        updateMenu();
+        updateMenu(button.dataset.category);
     });
 });
 
@@ -377,6 +385,31 @@ document.addEventListener('DOMContentLoaded', function() {
     showSlide(0);
     document.querySelectorAll('.animate-on-load').forEach(el => {
         el.classList.add('animate-fade-in');
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-links') && !e.target.closest('.menu-toggle')) {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
     });
 });
 
