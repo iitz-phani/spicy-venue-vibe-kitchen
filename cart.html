@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Spicy Venue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html">
+                <img src="images/SV_Logo-removebg-preview.png" alt="Spicy Venue Logo" id="logo">
+            </a>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="all-menu.html">Menu</a></li>
+                <li><a href="index.html#catering">Catering</a></li>
+                <li><a href="cart.html" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                    <span class="cart-badge">0</span>
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="cart-section" class="section-padding">
+        <div class="container">
+            <h2 class="text-center">Your Cart</h2>
+            <div id="cart-items" class="cart-container">
+                <!-- Cart items will be populated by JavaScript -->
+            </div>
+            <div class="cart-summary">
+                <div class="total">
+                    <h3>Total: <span id="cart-total">$0.00</span></h3>
+                </div>
+                <button id="checkout-btn" class="btn-primary">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Display cart items
+        function displayCartItems() {
+            const cartContainer = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const cartSummary = document.querySelector('.cart-summary');
+            const savedCart = localStorage.getItem('cart');
+            
+            // Reset the display
+            cartContainer.innerHTML = '';
+            cartTotal.textContent = '$0.00';
+            
+            if (savedCart) {
+                const cart = JSON.parse(savedCart);
+                
+                if (cart.length === 0) {
+                    cartContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                    cartSummary.style.display = 'none';
+                    return;
+                }
+
+                let total = 0;
+                const cartHTML = cart.map(item => {
+                    const price = parseFloat(item.price.replace('$', ''));
+                    total += price;
+                    return `
+                        <div class="cart-item">
+                            <div class="cart-item-image">
+                                <img src="${item.image}" alt="${item.name}">
+                            </div>
+                            <div class="cart-item-details">
+                                <h3>${item.name}</h3>
+                                <p class="item-description">${item.description}</p>
+                                <p class="item-price">${item.price}</p>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart('${item.name}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+
+                cartContainer.innerHTML = cartHTML;
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+                cartSummary.style.display = 'block';
+            } else {
+                cartContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                cartSummary.style.display = 'none';
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(itemName) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.name !== itemName);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+            
+            // Hide cart icon if cart is empty
+            if (cart.length === 0) {
+                const cartIcon = document.getElementById('cart-icon');
+                if (cartIcon) {
+                    cartIcon.style.display = 'none';
+                }
+            }
+        }
+
+        // Initialize cart page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart and update badge
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartBadge();
+            }
+            
+            displayCartItems();
+            
+            // Add checkout button functionality
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function() {
+                    alert('Thank you for your order! This is a demo, no actual transaction will occur.');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

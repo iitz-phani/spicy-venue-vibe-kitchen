@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Menu Items - Spicy Venue</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html">
+                <img src="images/SV_Logo-removebg-preview.png" alt="Spicy Venue Logo" id="logo">
+            </a>
+            <button class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="all-menu.html">Menu</a></li>
+                <li><a href="index.html#catering">Catering</a></li>
+                <li><a href="cart.html" id="cart-icon" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                    <span class="cart-badge">0</span>
+                </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="all-menu" class="section-padding">
+        <div class="container">
+            <h2 class="text-center">Our Complete Menu</h2>
+            <div class="menu-grid">
+                <!-- All menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast container for notifications -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate all menu items
+            updateMenu('all', true);
+        });
+    </script>
+</body>
+</html> 

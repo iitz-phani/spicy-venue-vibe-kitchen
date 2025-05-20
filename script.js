@@ -1,4 +1,6 @@
 // Menu and Gallery Data
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
 const menuData = [
     {
         category: 'main',
@@ -34,7 +36,7 @@ const menuData = [
         category: 'starters',
         name: 'Paneer Tikka',
         description: 'Chunks of paneer marinated in spices and grilled in a tandoor',
-        price: '12.99',
+        price: '$12.99',
         image: 'images/paneer-tikka.jpg',
         isVeg: true,
         isSpicy: 2,
@@ -44,7 +46,7 @@ const menuData = [
         category: 'starters',
         name: 'Samosa',
         description: 'Crispy pastry filled with spiced potatoes and peas',
-        price: '8.99',
+        price: '$8.99',
         image: 'images/samosa.jpg',
         isVeg: true,
         isSpicy: 2
@@ -53,7 +55,7 @@ const menuData = [
         category: 'main',
         name: 'Palak Paneer',
         description: 'Cottage cheese cubes in a smooth spinach gravy',
-        price: '15.99',
+        price: '$15.99',
         image: 'images/palak-paneer.jpg',
         isVeg: true,
         isSpicy: 2
@@ -86,6 +88,33 @@ const menuData = [
         isSpicy: 0,
         isPopular: true
     },
+    {
+        category: 'desserts',
+        name: 'Rasgulla',
+        description: 'Soft and spongy cheese balls soaked in sugar syrup',
+        price: '$6.99',
+        image: 'images/rasgulla.jpg',
+        isVeg: true,
+        isSpicy: 0
+    },
+    {
+        category: 'desserts',
+        name: 'Jalebi',
+        description: 'Crispy and juicy spiral-shaped sweets',
+        price: '$5.99',
+        image: 'images/jalebi.jpg',
+        isVeg: true,
+        isSpicy: 0
+    },
+    {
+        category: 'desserts',
+        name: 'Kheer',
+        description: 'Creamy rice pudding flavored with cardamom and saffron',
+        price: '$7.49',
+        image: 'images/kheer.jpg',
+        isVeg: true,
+        isSpicy: 0
+    }
 ];
 
 const galleryData = [
@@ -231,7 +260,7 @@ let activeCategory = 'all';
 function createMenuCard(item) {
     const spiceIndicator = item.isSpicy ? `<div class="spice-indicator">${'🌶️'.repeat(item.isSpicy)}</div>` : '';
     return `
-        <div class="menu-item">
+        <div class="menu-item" data-id="${item.name}">
             <img src="${item.image}" alt="${item.name}" loading="lazy">
             <div class="menu-badges">
                 <span class="badge ${item.isVeg ? 'veg' : 'non-veg'}">${item.isVeg ? 'Veg' : 'Non-Veg'}</span>
@@ -244,20 +273,35 @@ function createMenuCard(item) {
                 <h3>${item.name}</h3>
                 <p>${item.description}</p>
                 <div class="price-spice">
-                    <span class="price">$${item.price}</span>
+                    <span class="price">${item.price}</span>
                     ${spiceIndicator}
                 </div>
+                <button class="add-to-cart-btn" onclick="addToCart({
+                    name: '${item.name}',
+                    price: '${item.price}',
+                    image: '${item.image}',
+                    description: '${item.description}'
+                })">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
             </div>
         </div>
     `;
 }
 
-function updateMenu(category = 'all') {
-    const filteredItems = category === 'all' 
+function updateMenu(category = 'all', viewAll = false) {
+    let filteredItems = category === 'all' 
         ? menuData 
         : menuData.filter(item => item.category === category);
     
-    menuContainer.innerHTML = filteredItems.map(createMenuCard).join('');
+    // Duplicate items if less than 4
+    while (filteredItems.length < 4) {
+        filteredItems = filteredItems.concat(filteredItems.slice(0, 4 - filteredItems.length));
+    }
+
+    const itemsToShow = viewAll ? filteredItems : filteredItems.slice(0, 4);
+    
+    menuContainer.innerHTML = itemsToShow.map(createMenuCard).join('');
     
     // Add heart icon click handlers
     document.querySelectorAll('.heart-icon').forEach(button => {
@@ -267,6 +311,11 @@ function updateMenu(category = 'all') {
             icon.classList.toggle('fas');
             icon.classList.toggle('far');
         });
+    });
+
+    // Add view all button handler
+    document.querySelector('.view-all-btn').addEventListener('click', () => {
+        window.location.href = 'all-menu.html';
     });
 }
 
@@ -382,18 +431,48 @@ updateMenu();
 
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', function() {
-    showSlide(0);
-    document.querySelectorAll('.animate-on-load').forEach(el => {
-        el.classList.add('animate-fade-in');
+    // Initialize cart from localStorage
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Update cart icon visibility and badge
+    const cartIcons = document.querySelectorAll('#cart-icon');
+    cartIcons.forEach(icon => {
+        if (icon) {
+            icon.style.display = cart.length > 0 ? 'block' : 'none';
+            
+            // Only add click handler if we're not on the cart page
+            if (!window.location.href.includes('cart.html')) {
+                icon.addEventListener('click', function(e) {
+                    window.location.href = 'cart.html';
+                });
+            }
+        }
     });
+    
+    // Update cart badge
+    updateCartBadge();
 
-    // Mobile Menu Toggle
+    // Mobile menu toggle - Only add listeners if elements exist
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     
-    menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Show initial slide if on home page
+    const slides = document.querySelectorAll('.slide');
+    if (slides.length > 0) {
+        showSlide(0);
+    }
+
+    // Initialize animations if elements exist
+    const animateElements = document.querySelectorAll('.animate-on-load');
+    animateElements.forEach(el => {
+        el.classList.add('animate-fade-in');
     });
 
     // Close mobile menu when clicking a link
@@ -441,3 +520,102 @@ window.addEventListener('scroll', () => {
         header.style.boxShadow = 'none';
     }
 });
+
+// Update cart badge count
+function updateCartBadge() {
+    const badges = document.querySelectorAll('.cart-badge');
+    const count = cart.length;
+    badges.forEach(badge => {
+        badge.textContent = count;
+        badge.style.display = count > 0 ? 'flex' : 'none';
+    });
+}
+
+function addToCart(item) {
+    // Initialize cart if it doesn't exist
+    if (!Array.isArray(cart)) {
+        cart = [];
+    }
+    
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Show cart icon - Updated to be more robust
+    const cartIcons = document.querySelectorAll('#cart-icon');
+    cartIcons.forEach(icon => {
+        if (icon) {
+            icon.style.display = 'block';
+        }
+    });
+    
+    // Update cart badge
+    updateCartBadge();
+    
+    // Show toast notification
+    showToast(`${item.name} added to cart!`);
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Update removeFromCart function
+function removeFromCart(itemName) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.name !== itemName);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Update cart badge and icon visibility
+    updateCartBadge();
+    const cartIcons = document.querySelectorAll('#cart-icon');
+    cartIcons.forEach(icon => {
+        if (icon) {
+            icon.style.display = cart.length > 0 ? 'block' : 'none';
+        }
+    });
+
+    // If we're on the cart page, refresh the display
+    if (window.location.href.includes('cart.html')) {
+        const cartContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartSummary = document.querySelector('.cart-summary');
+        
+        if (cart.length === 0) {
+            cartContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+            cartTotal.textContent = '$0.00';
+            cartSummary.style.display = 'none';
+        } else {
+            let total = 0;
+            const cartHTML = cart.map(item => {
+                const price = parseFloat(item.price.replace('$', ''));
+                total += price;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h3>${item.name}</h3>
+                            <p class="item-description">${item.description}</p>
+                            <p class="item-price">${item.price}</p>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart('${item.name}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartContainer.innerHTML = cartHTML;
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+            cartSummary.style.display = 'block';
+        }
+    }
+}
