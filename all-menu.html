@@ -4,13 +4,325 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Menu Items - Spicy Venue</title>
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&family=Poppins:wght@700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+    /* RESET AND BASE STYLES */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8fafc;
+        line-height: 1.6;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    .text-center {
+        text-align: center;
+    }
+    
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 20px;
+    }
+    
+    /* CART STYLES */
+    #cart-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #e65100;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+    
+    /* CATEGORY PILLS */
+    .menu-categories-bar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 24px;
+        padding: 20px 0;
+    }
+    
+    .category-pill {
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 25px;
+        padding: 12px 24px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #64748b;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        outline: none;
+    }
+    
+    .category-pill:hover {
+        background: #e2e8f0;
+        transform: translateY(-1px);
+    }
+    
+    .category-pill.selected {
+        background: #22C55E;
+        border-color: #22C55E;
+        color: white;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    }
+    
+    /* NEW BISIBISI LAYOUT - WORKING MODEL */
+    .menu-items-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+    
+    .menu-item-card {
+        background: white;
+        border: 1px solid #000000;
+        border-radius: 8px;
+        padding: 12px;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        min-height: 120px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        overflow: hidden;
+    }
+    
+    .menu-item-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    
+    .card-content {
+        padding-right: 65px;
+        padding-left: 12px;
+        position: relative;
+        min-height: 90px;
+    }
+    
+    .item-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+    
+    .item-description {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-bottom: 16px;
+        line-height: 1.3;
+    }
+    
+    .item-price {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #e65100;
+        position: absolute;
+        bottom: 10px;
+        left: 12px;
+    }
+    
+    .add-to-cart-btn {
+        position: absolute !important;
+        bottom: 10px !important;
+        right: 10px !important;
+        background: #e65100 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 6px 12px !important;
+        font-size: 0.8rem !important;
+        font-weight: 500 !important;
+        cursor: pointer !important;
+    }
+    
+    .item-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 2px 6px;
+        border-radius: 8px;
+        font-size: 0.6rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+        opacity: 0.95;
+        z-index: 1;
+        background: #e8f5e9;
+        color: #2e7d32;
+        box-shadow: none;
+    }
+    
+    .badge-special {
+        background: #fff3e0;
+        color: #e65100;
+    }
+    
+    .badge-must-try {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+    
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+        .menu-items-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .menu-items-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        .menu-item-card {
+            padding: 20px;
+            min-height: 120px;
+        }
+        
+        .card-content {
+            padding-right: 50px;
+            padding-bottom: 50px;
+        }
+        
+        .item-badge {
+            right: 15px;
+            padding: 6px 10px;
+            font-size: 0.7rem;
+        }
+        
+        .add-to-cart-btn {
+            bottom: 15px !important;
+            right: 15px !important;
+            padding: 6px 12px !important;
+            font-size: 0.8rem !important;
+        }
+        
+        .category-pill {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 80px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background: white;
+            flex-direction: column;
+            justify-content: start;
+            padding-top: 2rem;
+            transition: left 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links.active {
+            left: 0;
+        }
+        
+        .menu-toggle {
+            display: flex;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .card-content {
+            padding-right: 40px;
+            padding-bottom: 50px;
+        }
+        
+        .item-name {
+            font-size: 1.1rem;
+        }
+        
+        .item-description {
+            font-size: 0.85rem;
+        }
+        
+        .item-price {
+            font-size: 1.1rem;
+        }
+        
+        .add-to-cart-btn {
+            bottom: 12px !important;
+            right: 12px !important;
+            padding: 6px 10px !important;
+            font-size: 0.75rem !important;
+        }
+    }
+    
+    /* TOAST NOTIFICATION */
+    .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #22c55e;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        font-weight: 600;
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    </style>
 </head>
 <body>
     <header>
@@ -38,21 +350,287 @@
     <section id="all-menu" class="section-padding">
         <div class="container">
             <h2 class="text-center">Our Complete Menu</h2>
+            
+            <div class="menu-categories-bar">
+                <button class="category-pill selected" data-category="all">All</button>
+                <button class="category-pill" data-category="tiffins">Tiffins</button>
+                <button class="category-pill" data-category="appetizers">Starters</button>
+                <button class="category-pill" data-category="indian_curries">Curries</button>
+                <button class="category-pill" data-category="biryanis_and_pulavs">Rice</button>
+                <button class="category-pill" data-category="tandoor">Tandoor</button>
+                <button class="category-pill" data-category="snacks">Snacks</button>
+                <button class="category-pill" data-category="juice_and_drinks">Drinks</button>
+            </div>
+            
             <div class="menu-grid">
-                <!-- All menu items will be populated by JavaScript -->
+                <!-- Menu items will be populated by JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Toast container for notifications -->
-    <div id="toast-container"></div>
-
-    <script src="script.js"></script>
     <script>
-        // Wait for DOM to be fully loaded
+        // Menu data with badges
+        const menuData = [
+            // Tiffins
+            { category: 'tiffins', name: 'IDLI', description: 'Steamed rice and lentil cakes', price: '5.99' },
+            { category: 'tiffins', name: 'IDLI SAMBAR(3)', description: 'Idli served with sambar', price: '7.99' },
+            { category: 'tiffins', name: 'GHEE KARAM IDLI', description: 'Idli with spicy ghee powder', price: '7.99', badge: 'must-try' },
+            { category: 'tiffins', name: 'VADA(2)', description: 'Crispy lentil donuts', price: '6.49' },
+            { category: 'tiffins', name: 'VADA SAMBAR(2)', description: 'Vada served with sambar', price: '7.99' },
+            { category: 'tiffins', name: 'IDLI VADA COMBO', description: 'Combination of idli and vada', price: '7.99' },
+            { category: 'tiffins', name: 'POORI BHAJI', description: 'Puffed bread with potato curry', price: '9.99' },
+            { category: 'tiffins', name: 'POORI WITH CHICKEN CURRY', description: 'Poori served with chicken curry', price: '11.99' },
+            { category: 'tiffins', name: 'POORI WITH GOAT CURRY', description: 'Poori served with goat curry', price: '14.99' },
+            { category: 'tiffins', name: 'UPMA', description: 'Savory semolina porridge', price: '5.99' },
+            { category: 'tiffins', name: 'PONGAL', description: 'Rice and lentil porridge', price: '5.99' },
+            { category: 'tiffins', name: 'PLAIN DOSA', description: 'Crispy rice and lentil crepe', price: '8.99' },
+            { category: 'tiffins', name: 'MASALA DOSA', description: 'Dosa with potato filling', price: '9.99', badge: 'must-try' },
+            { category: 'tiffins', name: 'ONION DOSA', description: 'Dosa with onion topping', price: '9.99' },
+            { category: 'tiffins', name: 'ONION MASALA DOSA', description: 'Dosa with onion and potato filling', price: '9.99' },
+            { category: 'tiffins', name: 'GHEE KARAM DOSA', description: 'Dosa with spicy ghee powder', price: '9.99', badge: 'special' },
+
+            // Appetizers  
+            { category: 'appetizers', name: 'VEG MANCHURIA', description: 'Indo-Chinese vegetable fritters', price: '9.99' },
+            { category: 'appetizers', name: 'PANEER 65', description: 'Spicy cottage cheese fritters', price: '10.99' },
+            { category: 'appetizers', name: 'CHILLI PANEER', description: 'Indo-Chinese style spicy paneer', price: '10.99' },
+            { category: 'appetizers', name: 'JALAPENO PANEER', description: 'Paneer with spicy jalapenos', price: '11.99' },
+            { category: 'appetizers', name: 'GOBI 65', description: 'Spicy cauliflower fritters', price: '9.99' },
+            { category: 'appetizers', name: 'GOBI MANCHURIA', description: 'Indo-Chinese style cauliflower', price: '9.99' },
+            { category: 'appetizers', name: 'CHILLI BABYCORN', description: 'Spicy baby corn preparation', price: '10.99' },
+            { category: 'appetizers', name: 'CRISPY CORN', description: 'Crispy fried corn kernels', price: '10.99' },
+            { category: 'appetizers', name: 'SPRING ROLLS', description: 'Vegetable filled crispy rolls', price: '9.99' },
+            { category: 'appetizers', name: 'CHILLI EGG', description: 'Spicy egg preparation', price: '10.99' },
+            { category: 'appetizers', name: "SURAVI'S SPECIAL CHICKEN 65", description: 'Signature spicy chicken fritters', price: '10.99', badge: 'special' },
+            { category: 'appetizers', name: 'CHILLI CHICKEN', description: 'Indo-Chinese style spicy chicken', price: '10.99' },
+            { category: 'appetizers', name: 'GUNTUR KODI VEPUDU', description: 'Spicy Guntur style chicken fry', price: '10.99', badge: 'must-try' },
+            { category: 'appetizers', name: 'MIRAPA KODI', description: 'Spicy pepper chicken', price: '10.99' },
+            { category: 'appetizers', name: 'KARIVAEPAKU KODI', description: 'Curry leaf flavored chicken', price: '10.99' },
+            { category: 'appetizers', name: 'CHICKEN GHEE ROAST FRY', description: 'Chicken roasted in ghee', price: '11.99', badge: 'special' },
+            { category: 'appetizers', name: 'JALAPENO CHICKEN', description: 'Chicken with spicy jalapenos', price: '11.99' },
+            { category: 'appetizers', name: 'GARLIC CHICKEN DRY', description: 'Garlic flavored chicken fry', price: '10.99' },
+            { category: 'appetizers', name: "SURAVI'S SPL CHICKEN FRY", description: 'Special house chicken fry', price: '12.99', badge: 'special' },
+            { category: 'appetizers', name: 'GOAT FRY', description: 'Spicy goat fry', price: '14.99' },
+            { category: 'appetizers', name: 'GOAT GHEE ROAST FRY', description: 'Goat roasted in ghee', price: '14.99', badge: 'special' },
+            { category: 'appetizers', name: 'GOAT PEPPER FRY', description: 'Pepper flavored goat fry', price: '14.99' },
+            { category: 'appetizers', name: 'CHILLI SHRIMP', description: 'Spicy shrimp preparation', price: '14.99' },
+            { category: 'appetizers', name: 'APOLLO FISH', description: 'Special spicy fish fry', price: '14.99', badge: 'must-try' },
+
+            // Indian Curries
+            { category: 'indian_curries', name: 'PALAK DAL', description: 'Spinach with lentils', price: '11.99' },
+            { category: 'indian_curries', name: 'DAL TADKA', description: 'Tempered yellow lentils', price: '11.99' },
+            { category: 'indian_curries', name: 'TOMATO DAL', description: 'Lentils with tomatoes', price: '11.99' },
+            { category: 'indian_curries', name: 'PANEER BUTTER MASALA', description: 'Cottage cheese in rich butter sauce', price: '14.99', badge: 'must-try' },
+            { category: 'indian_curries', name: 'PANEER TIKKA MASALA', description: 'Grilled cottage cheese in spicy gravy', price: '14.99' },
+            { category: 'indian_curries', name: 'ANDHRA CHICKEN CURRY', description: 'Spicy Andhra style chicken', price: '13.99', badge: 'must-try' },
+            { category: 'indian_curries', name: 'BUTTER CHICKEN MASALA', description: 'Chicken in rich butter sauce', price: '13.99', badge: 'must-try' },
+
+            // Biryanis
+            { category: 'biryanis_and_pulavs', name: 'VEGETABLE BIRYANI', description: 'Mixed vegetable biryani', price: '13.99' },
+            { category: 'biryanis_and_pulavs', name: 'CHICKEN DUM BIRYANI', description: 'Traditional chicken biryani', price: '14.99', badge: 'must-try' },
+            { category: 'biryanis_and_pulavs', name: 'VIJAYAWADA BONELESS CHICKEN BIRYANI', description: 'Special boneless chicken biryani', price: '15.99', badge: 'special' },
+            { category: 'biryanis_and_pulavs', name: 'GOAT DUM BIRYANI', description: 'Traditional goat biryani', price: '16.99' },
+
+            // Tandoor
+            { category: 'tandoor', name: 'TANDOORI PANEER TIKKA', description: 'Grilled cottage cheese tikka', price: '11.99' },
+            { category: 'tandoor', name: 'TANDOORI CHICKEN KEBAB', description: 'Grilled chicken kebab', price: '11.99' },
+            { category: 'tandoor', name: 'PLAIN NAAN', description: 'Classic plain naan bread', price: '1.99' },
+            { category: 'tandoor', name: 'GARLIC NAAN', description: 'Garlic flavored naan', price: '2.99' },
+
+            // Snacks
+            { category: 'snacks', name: 'EGG BONDA', description: 'Deep fried egg fritters (4pcs)', price: '4.99' },
+            { category: 'snacks', name: 'ALOO SAMOSA', description: 'Potato stuffed pastry (2pcs)', price: '2.99' },
+            { category: 'snacks', name: 'PANI PURI', description: 'Hollow crisps with flavored water', price: '6.99' },
+
+            // Drinks
+            { category: 'juice_and_drinks', name: 'SUGARCANE', description: 'Fresh sugarcane juice', price: '6.99' },
+            { category: 'juice_and_drinks', name: 'MANGO LASSI', description: 'Mango yogurt drink', price: '4.99' },
+            { category: 'juice_and_drinks', name: 'MASALA CHAI(L)', description: 'Large spiced tea', price: '1.99' }
+        ];
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function addToCart(item) {
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show cart icon
+            const cartIcon = document.getElementById('cart-icon');
+            const cartBadge = document.querySelector('.cart-badge');
+            
+            if (cartIcon) {
+                cartIcon.style.display = 'flex';
+            }
+            
+            if (cartBadge) {
+                cartBadge.textContent = cart.length;
+            }
+            
+            // Show toast notification
+            showToast(`${item.name} added to cart!`);
+        }
+
+        function showToast(message) {
+            // Remove existing toast if any
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 3000);
+        }
+
+        // Function to create menu item card with new layout
+        function createMenuItemCard(item) {
+            const badgeHtml = item.badge ? `<div class="item-badge badge-${item.badge}">${item.badge === 'special' ? "Chef's Special" : 'Must Try'}</div>` : '';
+            
+            return `
+                <article class="menu-item-card">
+                    ${badgeHtml}
+                    <div class="card-content">
+                        <h4 class="item-name">${item.name}</h4>
+                        <p class="item-description">${item.description}</p>
+                        <div class="card-footer">
+                            <span class="item-price">$${item.price}</span>
+                            <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-cart-plus"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Function to update menu with all categories
+        function updateMenuSideBySide() {
+            const menuGrid = document.querySelector('.menu-grid');
+            if (!menuGrid) {
+                return;
+            }
+
+            menuGrid.innerHTML = '';
+            
+            // Group items by category
+            const groupedItems = menuData.reduce((acc, item) => {
+                if (!acc[item.category]) {
+                    acc[item.category] = [];
+                }
+                acc[item.category].push(item);
+                return acc;
+            }, {});
+
+            // Create sections for each category
+            Object.entries(groupedItems).forEach(([category, categoryItems]) => {
+                if (categoryItems.length > 0) {
+                    const categoryDisplayNames = {
+                        'tiffins': 'Tiffins',
+                        'appetizers': 'Starters',
+                        'indian_curries': 'Curries', 
+                        'biryanis_and_pulavs': 'Rice',
+                        'tandoor': 'Tandoor',
+                        'snacks': 'Snacks',
+                        'juice_and_drinks': 'Drinks'
+                    };
+                    
+                    const sectionHtml = `
+                        <div class="menu-section">
+                            <h3 style="font-size: 1.8rem; color: #2d3748; margin: 30px 0 20px 0; border-bottom: 2px solid #e53e3e; padding-bottom: 10px;">${categoryDisplayNames[category]}</h3>
+                            <div class="menu-items-grid">
+                                ${categoryItems.map(item => createMenuItemCard(item)).join('')}
+                            </div>
+                        </div>
+                    `;
+                    menuGrid.innerHTML += sectionHtml;
+                }
+            });
+        }
+
+        // Function to update menu with single category
+        function updateMenuSideBySideSingle(category) {
+            const menuGrid = document.querySelector('.menu-grid');
+            if (!menuGrid) return;
+
+            menuGrid.innerHTML = '';
+            
+            const categoryItems = menuData.filter(item => item.category === category);
+            
+            if (categoryItems.length > 0) {
+                const categoryDisplayNames = {
+                    'tiffins': 'Tiffins',
+                    'appetizers': 'Starters',
+                    'indian_curries': 'Curries', 
+                    'biryanis_and_pulavs': 'Rice',
+                    'tandoor': 'Tandoor',
+                    'snacks': 'Snacks',
+                    'juice_and_drinks': 'Drinks'
+                };
+                
+                const sectionHtml = `
+                    <div class="menu-section">
+                        <h3 style="font-size: 1.8rem; color: #2d3748; margin: 30px 0 20px 0; border-bottom: 2px solid #e53e3e; padding-bottom: 10px;">${categoryDisplayNames[category]}</h3>
+                        <div class="menu-items-grid">
+                            ${categoryItems.map(item => createMenuItemCard(item)).join('')}
+                        </div>
+                    </div>
+                `;
+                menuGrid.innerHTML = sectionHtml;
+            }
+        }
+
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
             // Populate all menu items
-            updateMenu('all', true);
+            updateMenuSideBySide();
+            
+            // Set up category pill click handlers
+            const categoryPills = document.querySelectorAll('.category-pill');
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    // Remove selected class from all pills
+                    categoryPills.forEach(p => p.classList.remove('selected'));
+                    // Add selected class to clicked pill
+                    this.classList.add('selected');
+                    
+                    // Get category and update menu
+                    const category = this.dataset.category;
+                    
+                    if (category === 'all') {
+                        updateMenuSideBySide();
+                    } else {
+                        updateMenuSideBySideSingle(category);
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // Initialize cart display
+            const cartIcon = document.getElementById('cart-icon');
+            const cartBadge = document.querySelector('.cart-badge');
+            
+            if (cart.length > 0) {
+                cartIcon.style.display = 'flex';
+                cartBadge.textContent = cart.length;
+            }
         });
     </script>
 </body>

@@ -22,7 +22,7 @@
     <!-- Header -->
     <header>
         <nav class="container">
-            <a href="#home">
+            <a href="index.html">
                 <img src="images/SV_Logo-removebg-preview.png" alt="Spicy Venue Logo" id="logo">
             </a>
             <button class="menu-toggle">
@@ -31,7 +31,7 @@
                 <span></span>
             </button>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="all-menu.html">Menu</a></li>
                 <li><a href="#catering">Catering</a></li>
                 <li><a href="cart.html" id="cart-icon" style="display: none;">
@@ -95,21 +95,8 @@
     <section id="menu" class="section-padding">
         <div class="container">
             <h2 class="text-center">Our Menu</h2>
-            <div class="menu-categories">
-                <button class="category-btn" data-category="starters">Starters</button>
-                <button class="category-btn" data-category="main">Main Course</button>
-                <button class="category-btn" data-category="bread">Bread & Rice</button>
-                <button class="category-btn" data-category="desserts">Desserts</button>
-                <button class="view-all-btn" onclick="window.location.href='all-menu.html'">View All</button>
-            </div>
             <div class="menu-grid">
-                <!-- Menu items will be populated by JavaScript -->
-                <div class="food-card">
-                    <img src="images/food-item.jpg" alt="Food Item">
-                    <h3>Food Item Name</h3>
-                    <p>$10.00</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                </div>
+                <!-- Menu items will be dynamically inserted here -->
             </div>
         </div>
     </section>
