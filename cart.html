@@ -12,7 +12,7 @@
     <header>
         <nav class="container">
             <a href="index.html">
-                <img src="images/SV_Logo-removebg-preview.png" alt="Spicy Venue Logo" id="logo">
+                <img src="images/Spicy Venue New Logo.png" alt="Spicy Venue Logo" id="logo">
             </a>
             <button class="menu-toggle">
                 <span></span>
@@ -23,6 +23,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="all-menu.html">Menu</a></li>
                 <li><a href="index.html#catering">Catering</a></li>
+                <li><a href="https://order.toasttab.com/online/chapter-two-11625-custer-road-suite-100" target="_blank" rel="noopener">Toast</a></li>
                 <li><a href="cart.html" id="cart-icon">
                     <i class="fas fa-shopping-cart"></i> Cart
                     <span class="cart-badge">0</span>
@@ -77,12 +78,12 @@
                     return `
                         <div class="cart-item">
                             <div class="cart-item-image">
-                                <img src="${item.image}" alt="${item.name}">
+                                <!-- No image tag here -->
                             </div>
                             <div class="cart-item-details">
                                 <h3>${item.name}</h3>
                                 <p class="item-description">${item.description}</p>
-                                <p class="item-price">${item.price}</p>
+                                <p class="item-price">$${item.price}</p>
                             </div>
                             <button class="remove-item" onclick="removeFromCart('${item.name}')">
                                 <i class="fas fa-trash"></i>
