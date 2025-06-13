@@ -74,15 +74,6 @@
     }
     
     /* CATEGORY PILLS */
-    .menu-categories-bar {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-bottom: 24px;
-        padding: 20px 0;
-    }
-    
     .category-pill {
         background: #f8fafc;
         border: 2px solid #e2e8f0;
@@ -328,7 +319,7 @@
     <header>
         <nav class="container">
             <a href="index.html">
-                <img src="images/SV_Logo-removebg-preview.png" alt="Spicy Venue Logo" id="logo">
+                <img src="images/Spicy Venue New Logo.png" alt="Spicy Venue Logo" id="logo">
             </a>
             <button class="menu-toggle">
                 <span></span>
@@ -339,6 +330,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="all-menu.html">Menu</a></li>
                 <li><a href="index.html#catering">Catering</a></li>
+                <li><a href="https://order.toasttab.com/online/chapter-two-11625-custer-road-suite-100" target="_blank" rel="noopener">Toast</a></li>
                 <li><a href="cart.html" id="cart-icon" style="display: none;">
                     <i class="fas fa-shopping-cart"></i> Cart
                     <span class="cart-badge">0</span>
@@ -352,14 +344,38 @@
             <h2 class="text-center">Our Complete Menu</h2>
             
             <div class="menu-categories-bar">
-                <button class="category-pill selected" data-category="all">All</button>
-                <button class="category-pill" data-category="tiffins">Tiffins</button>
-                <button class="category-pill" data-category="appetizers">Starters</button>
-                <button class="category-pill" data-category="indian_curries">Curries</button>
-                <button class="category-pill" data-category="biryanis_and_pulavs">Rice</button>
-                <button class="category-pill" data-category="tandoor">Tandoor</button>
-                <button class="category-pill" data-category="snacks">Snacks</button>
-                <button class="category-pill" data-category="juice_and_drinks">Drinks</button>
+                <button class="category-pill selected" data-category="all">
+                  <img src="images/icon-all.svg" alt="All" class="category-icon-img" />
+                  <span>All</span>
+                </button>
+                <button class="category-pill" data-category="tiffins">
+                  <img src="images/icon-tiffins.svg" alt="Tiffins" class="category-icon-img" />
+                  <span>Tiffins</span>
+                </button>
+                <button class="category-pill" data-category="appetizers">
+                  <img src="images/icon-starters.svg" alt="Starters" class="category-icon-img" />
+                  <span>Starters</span>
+                </button>
+                <button class="category-pill" data-category="indian_curries">
+                  <img src="images/icon-curries.svg" alt="Curries" class="category-icon-img" />
+                  <span>Curries</span>
+                </button>
+                <button class="category-pill" data-category="biryanis_and_pulavs">
+                  <img src="images/icon-rice.svg" alt="Rice" class="category-icon-img" />
+                  <span>Rice</span>
+                </button>
+                <button class="category-pill" data-category="tandoor">
+                  <img src="images/icon-tandoor.svg" alt="Tandoor" class="category-icon-img" />
+                  <span>Tandoor</span>
+                </button>
+                <button class="category-pill" data-category="snacks">
+                  <img src="images/icon-snacks.svg" alt="Snacks" class="category-icon-img" />
+                  <span>Snacks</span>
+                </button>
+                <button class="category-pill" data-category="juice_and_drinks">
+                  <img src="images/icon-drinks.svg" alt="Drinks" class="category-icon-img" />
+                  <span>Drinks</span>
+                </button>
             </div>
             
             <div class="menu-grid">
@@ -618,7 +634,6 @@
             
             if (menuToggle && navLinks) {
                 menuToggle.addEventListener('click', () => {
-                    menuToggle.classList.toggle('active');
                     navLinks.classList.toggle('active');
                 });
             }
