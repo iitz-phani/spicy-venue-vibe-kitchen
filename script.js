@@ -351,20 +351,23 @@ const categoryDisplayNames = {
 
 // Function to create menu item card for new layout
 function createMenuItemCard(item) {
-    const badgeHtml = item.badge ? `<div class="item-badge badge-${item.badge}">${item.badge === 'special' ? "Chef's Special" : 'Must Try'}</div>` : '';
+    const card = document.createElement('div');
+    card.className = 'menu-item-card';
     
-    return `
-        <article class="menu-item-card">
-            ${badgeHtml}
-            <div class="card-content">
-                <h4 class="item-name">${item.name}</h4>
-                <p class="item-description">${item.description}</p>
-                <div class="card-footer">
-                    <span class="item-price">$${item.price}</span>
-                </div>
+    let badgeHtml = item.badge ? `<span class="badge ${item.badge}">${item.badge}</span>` : '';
+    
+    card.innerHTML = `
+        <div class="menu-item-content">
+            <div class="menu-item-header">
+                <h3>${item.name} ${badgeHtml}</h3>
+                <p class="price">$${item.price}</p>
             </div>
-        </article>
+            <p class="description">${item.description}</p>
+            <a href="https://www.toasttab.com/spicy-venue" target="_blank" class="order-button">Order Now</a>
+        </div>
     `;
+    
+    return card;
 }
 
 // Function to create menu section with category on left and items on right
