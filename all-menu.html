@@ -329,12 +329,8 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="all-menu.html">Menu</a></li>
-                <li><a href="index.html#catering">Catering</a></li>
+                <li><a href="#catering">Catering</a></li>
                 <li><a href="https://order.toasttab.com/online/chapter-two-11625-custer-road-suite-100" target="_blank" rel="noopener">Toast</a></li>
-                <li><a href="cart.html" id="cart-icon" style="display: none;">
-                    <i class="fas fa-shopping-cart"></i> Cart
-                    <span class="cart-badge">0</span>
-                </a></li>
             </ul>
         </nav>
     </header>
@@ -463,48 +459,6 @@
             { category: 'juice_and_drinks', name: 'MASALA CHAI(L)', description: 'Large spiced tea', price: '1.99' }
         ];
 
-        // Cart functionality
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function addToCart(item) {
-            cart.push(item);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // Show cart icon
-            const cartIcon = document.getElementById('cart-icon');
-            const cartBadge = document.querySelector('.cart-badge');
-            
-            if (cartIcon) {
-                cartIcon.style.display = 'flex';
-            }
-            
-            if (cartBadge) {
-                cartBadge.textContent = cart.length;
-            }
-            
-            // Show toast notification
-            showToast(`${item.name} added to cart!`);
-        }
-
-        function showToast(message) {
-            // Remove existing toast if any
-            const existingToast = document.querySelector('.toast');
-            if (existingToast) {
-                existingToast.remove();
-            }
-            
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.remove();
-                }
-            }, 3000);
-        }
-
         // Function to create menu item card with new layout
         function createMenuItemCard(item) {
             const badgeHtml = item.badge ? `<div class="item-badge badge-${item.badge}">${item.badge === 'special' ? "Chef's Special" : 'Must Try'}</div>` : '';
@@ -517,10 +471,9 @@
                         <p class="item-description">${item.description}</p>
                         <div class="card-footer">
                             <span class="item-price">$${item.price}</span>
-                            <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-                                <i class="fas fa-cart-plus"></i>
-                                Add
-                            </button>
+                            <a href="https://order.toasttab.com/online/chapter-two-11625-custer-road-suite-100" target="_blank" rel="noopener" class="add-to-cart-btn">
+                                Order Now
+                            </a>
                         </div>
                     </div>
                 </article>
@@ -636,15 +589,6 @@
                 menuToggle.addEventListener('click', () => {
                     navLinks.classList.toggle('active');
                 });
-            }
-
-            // Initialize cart display
-            const cartIcon = document.getElementById('cart-icon');
-            const cartBadge = document.querySelector('.cart-badge');
-            
-            if (cart.length > 0) {
-                cartIcon.style.display = 'flex';
-                cartBadge.textContent = cart.length;
             }
         });
     </script>
